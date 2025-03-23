@@ -1,0 +1,20 @@
+<html>
+  <head> </head>
+  <body>
+    <div id="demo-div">
+      <input
+        type="text"
+        placeholder="start typing...."
+        onkeyup="convertToupper()"
+        id="in"
+      />
+      <input id="output" placeholder="output text" disabled />
+    </div>
+    <script>
+      function convertToupper() {
+        let input = document.getElementById("in").value;
+        document.getElementById("output").value = input.toUpperCase();
+      }
+    </script>
+  </body>
+</html>

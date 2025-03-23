@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum with Color Change</title>
+    <script>
+        const colorPalette = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "cyan", "brown"];
+        let currentIndex = 0;
+
+        function calculateAndDisplaySum() {
+            let startValue = parseFloat(document.getElementById("startNumber").value);
+            let endValue = parseFloat(document.getElementById("endNumber").value);
+            let totalSum = 0;
+
+            if (startValue < endValue) {
+                do {
+                    totalSum += startValue;
+                    startValue++;  
+                } while (startValue <= endValue);
+            }
+
+            const resultDiv = document.getElementById("sumResult");
+            resultDiv.innerHTML = "Total Sum: " + totalSum;
+            resultDiv.style.color = colorPalette[currentIndex];
+
+            // Update color for next calculation
+            currentIndex = (currentIndex + 1) % colorPalette.length;
+        }
+    </script>
+</head>
+<body>
+    <input type="number" id="startNumber" placeholder="Enter the starting number">
+    <input type="number" id="endNumber" placeholder="Enter the ending number">
+    <button onclick="calculateAndDisplaySum()">Calculate Sum</button>
+    <div id="sumResult"></div>
+</body>
+</html>
+
+
+

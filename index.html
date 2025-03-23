@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: "Open Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .page_header {
+        text-align: center;
+        padding: 30px;
+        background-color: #2b7a78;
+        color: #def2f1;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .page_container {
+        display: flex;
+        flex: 1;
+      }
+
+      .task_content {
+        flex: 1;
+        padding: 25px;
+        background-color: #ffffff;
+        margin: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      #task_frame {
+        width: 100%;
+        height: 75vh;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 4px;
+        background-color: #2b7a78;
+        color: #def2f1;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      footer a {
+        color: #def2f1;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      #search_and_buttons_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+
+      #project_buttons_container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        flex: 1;
+      }
+
+      #projectSearch {
+        padding: 10px;
+        border: 1px solid #3aafa9;
+        border-radius: 5px;
+        flex-basis: 200px;
+        margin-left: 20px;
+        align-self: flex-start;
+        background-color: #def2f1;
+        color: #17252a;
+      }
+
+      .project_button {
+        background-color: #3aafa9;
+        color: #17252a;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .project_button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        background-color: #2b7a78;
+        color: #def2f1;
+      }
+
+      .profile-photo img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid #3aafa9;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page_container">
+      <div class="task_content">
+        <div class="page_header">Assignment Projects</div>
+        <div id="search_and_buttons_container">
+          <div id="project_buttons_container"></div>
+          <input
+            type="text"
+            id="projectSearch"
+            placeholder="Find projects..."
+          />
+        </div>
+        <iframe id="task_frame" src="projects/landing.html"></iframe>
+      </div>
+    </div>
+
+    <footer>
+      <div class="profile-photo">
+        <img src="dp.jpg" alt="Your Name" />
+      </div>
+      Developed by <strong>Surya</strong> | Contact:
+      <a href="mailto:nbakaram@aum.edu">skancha@aum.edu </a>
+    </footer>
+
+    <script>
+      const projectCollection = {
+        item_A: {
+          title: "Task 01",
+          url: "projects/task1/Expectations.html",
+        },
+        item_B: {
+          title: "Task 02",
+          url: "projects/task2/page1.html",
+        },
+        item_C: { title: "Task 03", url: "projects/task3/surya.html" },
+        item_D: { title: "Task 04", url: "projects/task4/index.html" },
+        item_E: {
+          title: "Task 05",
+          url: "projects/task5/index-1.html",
+        },
+        item_F: {
+          title: "Task 08",
+          url: "projects/task8/feb4.html",
+        },
+        item_G: { title: "Task 09", url: "projects/task9/task9.html" },
+        item_H: { title: "Task 10", url: "projects/task10/task10.html" },
+        item_I: {
+          title: "Task 11",
+          url: "projects/task11/task10star.html",
+        },
+        item_J: { title: "Task 12", url: "projects/task12/c2.html" },
+        item_K: {
+          title: "Task 13",
+          url: "projects/task13/taskfeb18-2.html",
+        },
+        item_L: {
+          title: "Task 14",
+          url: "projects/task14/suryafeb-20.html",
+        },
+        item_M: {
+          title: "Task 14B",
+          url: "projects/task14b/surya-1.html",
+        },
+        item_N: {
+          title: "Task 15",
+          url: "projects/task15/suryamar112.html",
+        },
+      };
+
+      const frameWindow = document.getElementById("task_frame");
+      const searchField = document.getElementById("projectSearch");
+      const projectButtonsContainer = document.getElementById(
+        "project_buttons_container"
+      );
+
+      function createButtons(filteredItems) {
+        const currentButtons =
+          projectButtonsContainer.querySelectorAll(".project_button");
+        currentButtons.forEach((button) => button.remove());
+
+        Object.values(filteredItems).forEach((item) => {
+          const navButton = document.createElement("button");
+          navButton.textContent = item.title;
+          navButton.classList.add("project_button");
+          navButton.addEventListener(
+            "click",
+            () => (frameWindow.src = item.url)
+          );
+          projectButtonsContainer.appendChild(navButton);
+        });
+      }
+
+      createButtons(projectCollection);
+
+      searchField.addEventListener("input", () => {
+        const searchTerm = searchField.value.toLowerCase();
+        const filteredResults = Object.fromEntries(
+          Object.entries(projectCollection).filter(([_, item]) =>
+            item.title.toLowerCase().includes(searchTerm)
+          )
+        );
+        createButtons(filteredResults);
+      });
+    </script>
+  </body>
+</html>
